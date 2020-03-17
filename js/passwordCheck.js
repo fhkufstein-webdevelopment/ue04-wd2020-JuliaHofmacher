@@ -89,7 +89,7 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     this.checkForSpecialCharacters = function() {
 
        var sonderzeichen = /[!§,$_,.:;]/;
-       return !!this.passwordField.value.match(sonderzeichen);;
+       return !!this.passwordField.value.match(sonderzeichen);
     };
 }
 

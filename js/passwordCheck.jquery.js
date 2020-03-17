@@ -8,9 +8,9 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     this.minLength = 8; //this is what we defined and what we need to consider in our length check
 
     //this attributes are set with our constructor
-    this.wrapperField = $(wrapperId);
-    this.passwordField = $(passwordInputFieldId);
-    this.passwordSubmitButton = $(passwordSubmitButtonId);
+    this.wrapperField = $(wrapperId); // $ statt document.getElementbyId
+    this.passwordField = $(passwordInputFieldId); // $ statt document.getElementbyId
+    this.passwordSubmitButton = $(passwordSubmitButtonId); // $ statt document.getElementbyId
 
 
     var that = this; //a trick because this is a keyword and means different things in a new context! Especially when you work with events or if you call functions outside your class "this" won't mean you!
@@ -21,22 +21,22 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     //if we are in the password field an enter text - JavaScript Method "onkeyup" or "onkeup" - again in our case the field this.passwordField
     //if we try to click the submit button - JavaScript Method "onclick" - in our case this.passwordSubmitButton
 
-    this.passwordField.blur(function() {
+    this.passwordField.blur(function() {  // .blur statt onblur
         //the keyword "this" is always referring to its context.
         //onblur is an event which happens in "passwordField" -> so the keyword "this" would refer to the passwordField NOT to our class
         //therefore we previously saved "this" in a variable called "that"
         that.check();
     });
 
-    this.passwordField.keydown(function() {
+    this.passwordField.keydown(function() { // .keydown statt onkeyup
         that.check();
     });
 
-    this.passwordField.focus(function() {
+    this.passwordField.focus(function() { // .focus statt onfocus
         that.check();
     });
 
-    this.passwordSubmitButton.click(function() {
+    this.passwordSubmitButton.click(function() { // .click statt onclick
         that.check();
     });
 
@@ -61,6 +61,8 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
                 this.passwordSubmitButton.attr('disabled', true);
             }
 
+            // Anweisungen in den Schleifen sind anders: .removeClass .addClass .attr
+
 
         } else {
             //obviously a field is null (we weren't able to find it)
@@ -71,24 +73,22 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     };
 
     //TODO 2 start
+
     /*
     This method should return true if the length of passwordField value is greater or equal to this.minLength
      */
     this.checkForLength = function() {
-        //@todo
-        //have a look at javascript string methods and properties
-        return true; //this needs to be replaced!
+        return (this.passwordField.value).length >= this.minLength;
     };
 
     /*
     This method returns true if no special Character "!§$_.:,;" is found in this.password - otherwise false
      */
+    var sonderzeichen = /[!§,$_,.:;]/;
     this.checkForSpecialCharacters = function() {
-        //@todo
-        //have a look at javascript string methods and properties
-        //you could probably "match" it somehow
-        return true; //this needs to be replaced!
-    };
+            return !!this.passwordField.value.match(sonderzeichen);
+        };
+
     //TODO 2 end
 }
 
